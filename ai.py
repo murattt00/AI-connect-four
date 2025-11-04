@@ -21,32 +21,27 @@ def evaluate_window(window, piece):
 def score_position(board, piece):
     score = 0
 
-    ## Center column preference
     center_array = [int(i) for i in list(board[:, Column_count // 2])]
     center_count = center_array.count(piece)
     score += center_count * 3
 
-    ## Horizontal score
     for r in range(Row_count):
         row_array = [int(i) for i in list(board[r, :])]
         for c in range(Column_count - 3):
             window = row_array[c:c+4]
             score += evaluate_window(window, piece)
 
-    ## Vertical score
     for c in range(Column_count):
         col_array = [int(i) for i in list(board[:, c])]
         for r in range(Row_count - 3):
             window = col_array[r:r+4]
             score += evaluate_window(window, piece)
 
-    ## Positive diagonal score
     for r in range(Row_count - 3):
         for c in range(Column_count - 3):
             window = [board[r+i][c+i] for i in range(4)]
             score += evaluate_window(window, piece)
 
-    ## Negative diagonal score
     for r in range(3, Row_count):
         for c in range(Column_count - 3):
             window = [board[r-i][c+i] for i in range(4)]
@@ -63,9 +58,9 @@ def minimax(board, depth, alpha, beta, maximizingPlayer):
                 return (None, 100000000000000)
             elif check_win(board, Player_piece):
                 return (None, -10000000000000)
-            else: # Game is over, no more valid moves
+            else: 
                 return (None, 0)
-        else: # Depth is zero
+        else: 
             return (None, score_position(board, Ai_piece))
     if maximizingPlayer:
         value = -math.inf
@@ -82,7 +77,7 @@ def minimax(board, depth, alpha, beta, maximizingPlayer):
             if alpha >= beta:
                 break
         return column, value
-    else: # Minimizing player
+    else:
         value = math.inf
         column = random.choice(valid_locations)
         for col in valid_locations:

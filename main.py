@@ -44,17 +44,16 @@ def draw_pieces(board):
                 pygame.draw.circle(screen, YELLOW, (int(c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
     pygame.display.update()
 
-# --- Oyun Başlangıcı ---
+
 Ai_depth = 2
 board = game.create_board()
 game_over = False
-# Oyuncu tek sayılarda oynayacağı için 1 ile başlıyoruz.
+
 turn = 1 
 
 draw_board(board)
 draw_pieces(board)
 
-# --- Ana Oyun Döngüsü ---
 while not game_over:
 
     for event in pygame.event.get():
@@ -64,7 +63,7 @@ while not game_over:
         if event.type == pygame.MOUSEMOTION:
             pygame.draw.rect(screen, BLACK, (0, 0, width, SQUARESIZE))
             posx = event.pos[0]
-            # Sıra oyuncudaysa (turn tek sayı ise) üstte pulu göster
+        
             if turn % 2 != 0:
                 pygame.draw.circle(screen, RED, (posx, int(SQUARESIZE / 2)), RADIUS)
             pygame.display.update()
@@ -72,7 +71,7 @@ while not game_over:
         if event.type == pygame.MOUSEBUTTONDOWN:
             pygame.draw.rect(screen, BLACK, (0, 0, width, SQUARESIZE))
             
-            # Oyuncu Hamlesi (turn tek sayı ise)
+       
             if turn % 2 != 0:
                 posx = event.pos[0]
                 col = int(math.floor(posx / SQUARESIZE))
@@ -89,7 +88,7 @@ while not game_over:
                     turn += 1
                     draw_pieces(board)
 
-    # Yapay Zeka Hamlesi (turn çift sayı ise)
+
     if turn % 2 == 0 and not game_over:
         col, minimax_score = ai.minimax(board, Ai_depth, -math.inf, math.inf, True)
 

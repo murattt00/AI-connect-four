@@ -29,25 +29,23 @@ def print_board(board):
     print(" 0 1 2 3 4 5 6")
 
 def check_win(board, piece):
-    # Check horizontal locations for win
+   
     for c in range(Column_count-3):
         for r in range(Row_count):
             if board[r][c] == piece and board[r][c+1] == piece and board[r][c+2] == piece and board[r][c+3] == piece:
                 return True
 
-    # Check vertical locations for win
+    
     for c in range(Column_count):
         for r in range(Row_count-3):
             if board[r][c] == piece and board[r+1][c] == piece and board[r+2][c] == piece and board[r+3][c] == piece:
                 return True
 
-    # Check positively sloped diaganols
     for c in range(Column_count-3):
         for r in range(Row_count-3):
             if board[r][c] == piece and board[r+1][c+1] == piece and board[r+2][c+2] == piece and board[r+3][c+3] == piece:
                 return True
 
-    # Check negatively sloped diaganols
     for c in range(Column_count-3):
         for r in range(3, Row_count):
             if board[r][c] == piece and board[r-1][c+1] == piece and board[r-2][c+2] == piece and board[r-3][c+3] == piece:
